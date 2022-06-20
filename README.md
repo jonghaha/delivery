@@ -1,3 +1,5 @@
+## 접속 http://localhost:8080/swagger-ui/
+
 회원 가입, 로그인, 배달 조회, 배달 주문 수정 서비스를 위한 Back-End API 를 정의하고,
 JAVA (Spring Boot) 프로젝트로 구현해 주세요.
 

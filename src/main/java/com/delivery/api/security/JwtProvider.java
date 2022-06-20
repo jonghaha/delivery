@@ -13,8 +13,6 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtProvider {
-	public static final String AUTH_TOKEN = "X-AUTH-TOKEN";
-
 	@Value("${spring.jwt.secret}")
 	private String secretKey;
 

@@ -1,5 +1,7 @@
 package com.delivery.api.member.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.delivery.api.member.entity.Member;
@@ -13,12 +15,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class MemberService {
-	private final int PASSWORD_LENGTH = 12;
-	private final int TYPE_COUNT = 3;
+	private static final int PASSWORD_LENGTH = 12;
+	private static final int TYPE_COUNT = 3;
 	private final MemberRepository memberRepository;
 	private final JwtProvider jwtProvider;
 
 	// 회원가입
+	@Transactional
 	public ResponseDTO<MemberDTO> signup(MemberDTO memberDTO) {
 
 		Member member = memberRepository.findByIdEquals(memberDTO.getId()).orElse(null);
@@ -44,13 +47,9 @@ public class MemberService {
 	public boolean isValidPassword(String password) {
 		if (checkRange(password)) {
 			return false;
+		} else {
+			return containWord(password);
 		}
-
-		if (containWord(password)) {
-			return false;
-		}
-
-		return true;
 	}
 
 	// 비밀번호 영어 대문자, 영어 소문자, 숫자, 특수문자 3개이상 사용 체크
